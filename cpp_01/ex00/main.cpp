@@ -48,9 +48,19 @@ Zombie* newZombie(std::string name)
 {
 	Zombie newZombie;//Do I need a pointer here???
 	
+	//new
+
 	newZombie.set_name("hiiiii");//new
 	newZombie.announce();
 	return (&newZombie);
+}
+
+void randomChump( std::string name )
+{
+	Zombie newZombie;
+	
+	newZombie.set_name(name);
+	newZombie.announce();	
 }
 
 /*
