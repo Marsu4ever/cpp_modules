@@ -1,6 +1,6 @@
 NAME = zombie_horde
 
-#CFLAGS = -Wall -Wextra -Werror -std=c++11
+CFLAGS = -Wall -Wextra -Werror -std=c++11
 
 SOURCES =	main.cpp \
 			zombieHorde.cpp \
