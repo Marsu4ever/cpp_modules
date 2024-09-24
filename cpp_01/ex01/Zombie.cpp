@@ -3,7 +3,7 @@
 
 Zombie::Zombie()
 {
-	// announce();
+
 }
 
 Zombie::~Zombie()
@@ -11,10 +11,9 @@ Zombie::~Zombie()
 	farewell();
 }
 
-void	Zombie::set_and_announce_name(std::string name)
+void	Zombie::set_name(std::string name)
 {
 	(this->_name) = name;
-	announce();
 }
 
 std::string		Zombie::get_name(void) const

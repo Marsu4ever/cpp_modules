@@ -1,54 +1,43 @@
 
 #include "Zombie.hpp"
 
-static void		init_names(Zombie* zombie_array, int N, std::string name)
-{
-	int	i;
-
-	i = 0;
-	while(i < N)
-	{
-		zombie_array[i].set_and_announce_name(name);
-		i++;
-	}
-	/*
-		-range-based for loop
-	*/
-/* 	for (Zombie *&c: zombie_array)
-	{
-
-	} */
-}
-
-Zombie*	zombieHorde( int N, std::string name )//Null protect string...
-{
-	Zombie	*zombie_array;
-
-	/* if (N = 0) */
-
-	zombie_array = new Zombie[N];
-	init_names(zombie_array, N, name);
-	return (zombie_array);
-}
-
-int main(void)
-{
-	Zombie	*zombie_array;
-
-	// delete (zombie_2);
-	zombie_array = zombieHorde(1, "QWERTY");//Consider negative numbers and 0 // alsoo condider empty string
-	
-	// delete [] zombie_array;
-
-	return (0);
-}
-
 /*
 	-range based for loop
 	-check Ville git hub
 	-check
-		-negative edgecase
-		-INT MAX edge case
-		-nullptr edge case
-
+		-negative edgecase - DONE
+		-INT MAX edge case - Still to do
+		-nullptr edge case - DONE
 */
+
+int main(void)
+{
+	Zombie	*zombie_array;
+	int		N;
+	int		i;
+
+	N = 2,
+
+	zombie_array = zombieHorde(N, "jeff");//Consider negative numbers and 0 // alsoo condider empty string
+
+	/*
+		-I'm afraid to use INT_MAX
+			-try tomorrow
+	*/
+
+	/*	Tests	*/
+
+	//zombie_array = zombieHorde(N, "Jill");
+	//zombie_array = zombieHorde(N, "");
+	//zombie_array = zombieHorde(N, "ABCabc123!#€%&/()=?`^*_:;,.-'¨´+");
+	
+	//Also, try a negative number e.g. -3
+
+	for (i = 0; i < N; i++)
+	{
+		zombie_array[i].announce();		
+	}
+	delete [] zombie_array;
+	return (0);
+}
+

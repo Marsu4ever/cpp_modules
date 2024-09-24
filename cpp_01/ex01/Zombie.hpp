@@ -11,19 +11,16 @@ class Zombie
 		Zombie();
 		~Zombie();
 
-		// void			init_names(std::string name);		
-		
-		void			set_and_announce_name(std::string name);
-		
+		void			set_name(std::string name);
+		void			announce( void ) const;
+
 	private:
 		std::string		_name;
 	
-		void			announce( void ) const;
 		void			farewell(void) const;
 		std::string		get_name(void) const; 
 };
 
-// Zombie*		newZombie( std::string name );
-// void		randomChump( std::string name );
+Zombie*		zombieHorde( int N, std::string name );
 
 #endif
