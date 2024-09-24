@@ -1,10 +1,9 @@
-NAME = zombie
+NAME = zombie_horde
 
 CFLAGS = -Wall -Wextra -Werror -std=c++11
 
 SOURCES =	main.cpp \
-			newZombie.cpp \
-			randomChump.cpp \
+			zombieHorde.cpp \
 			Zombie.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
