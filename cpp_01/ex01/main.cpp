@@ -8,7 +8,7 @@ int main(void)
 	int		i;
 
 	N = 3;
-	zombie_array = zombieHorde(N, "jeff");
+	zombie_array = zombieHorde(N, "Jeff");
 
 	/*	
 		1. Try different name-inputs
