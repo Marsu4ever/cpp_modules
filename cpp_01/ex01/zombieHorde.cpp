@@ -22,7 +22,16 @@ Zombie*	zombieHorde( int N, std::string name )
 		std::cerr << "Error: Please pass in a number 1 or greater." << std::endl;
 		return (nullptr);
 	}
-	zombie_array = new Zombie[N];
+	try		//Here we protect against very large INTS that cause an allocation failure. ;)
+	{
+		zombie_array = new Zombie[N];
+	}
+	catch(const std::exception& e)	//Always remember to catch your exception. ;)
+	{
+		std::cerr << e.what() << "::Try a (significantly) smaller number of zombies" << '\n';
+		return (nullptr);
+	}
+
 	init_names(zombie_array, N, name);
 	return (zombie_array);
 }
