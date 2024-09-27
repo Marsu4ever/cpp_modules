@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 			std::cout << std::endl;
 		}
 		default:
-			std::cerr << "Pass in a valid argument (f.ex. DEBUG, INFO, WARNING or ERROR)."<< std::endl;
+			std::cerr << "Error: Pass in a valid argument (f.ex. DEBUG, INFO, WARNING or ERROR)."<< std::endl;
 
 	}
 	return (0);
