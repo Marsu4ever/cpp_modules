@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cerr << "Error: Pass in one argument f.ex. DEBUG, INFO, WARNING or ERROR" << std::endl;
+		std::cerr << "Error: Pass in one argument." << std::endl;
 		return (1);
 	}
 	
@@ -57,7 +57,8 @@ int main(int argc, char **argv)
 			std::cout << std::endl;
 		}
 		default:
-			;
+			
+			std::cerr << "Pass in a valid argument (f.ex. DEBUG, INFO, WARNING or ERROR)."<< std::endl;
 
 	}
 	return (0);
