@@ -55,10 +55,10 @@ int main(int argc, char **argv)
 			std::cout << "[ ERROR ]" << std::endl;
 			customer.complain("ERROR");
 			std::cout << std::endl;
+			break;
 		}
 		default:
-			std::cerr << "Error: Pass in a valid argument (f.ex. DEBUG, INFO, WARNING or ERROR)."<< std::endl;
-
+			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;;
 	}
 	return (0);
 }

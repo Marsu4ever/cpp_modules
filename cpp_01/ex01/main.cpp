@@ -12,10 +12,12 @@ int main(void)
 
 	/*	
 		1. Try different name-inputs
+
+		zombie_array = zombieHorde(N, "Jill");
+		zombie_array = zombieHorde(N, "");
+		zombie_array = zombieHorde(N, "ABCabc123!#€%&/()=?`^*_:;,.-'¨´+");
 	*/
-		//zombie_array = zombieHorde(N, "Jill");
-		//zombie_array = zombieHorde(N, "");
-		//zombie_array = zombieHorde(N, "ABCabc123!#€%&/()=?`^*_:;,.-'¨´+");
+
 	/*
 		2. Try numbers for N
 			i. -3

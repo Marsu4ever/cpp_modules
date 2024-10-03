@@ -15,7 +15,7 @@ class HumanB
 
 	private:
 		const std::string	_name;
-		const Weapon 		*_weapon;//make pointer to???//const??? -> no it changes
+		const Weapon 		*_weapon;
 
 		const std::string	get_name() const;
 };

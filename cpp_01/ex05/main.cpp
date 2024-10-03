@@ -10,5 +10,7 @@ int main(void)
 	// customer.complain("WARNING");
 	// customer.complain("ERROR");
 
+	// customer.complain("random input");
+
 	return (0);
 }

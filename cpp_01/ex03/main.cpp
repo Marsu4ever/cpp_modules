@@ -1,7 +1,11 @@
 
-
 #include "HumanA.hpp"
 #include "HumanB.hpp"
+
+/*
+	There are two mains (because we have Two Human classes...)
+		-> Try Them Out! :)
+*/
 
 int main(void)
 {

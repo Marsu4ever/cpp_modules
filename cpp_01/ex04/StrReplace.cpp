@@ -74,7 +74,7 @@ int		StrReplace::replace_file_strings(std::string file, std::string& s1, std::st
 
 	of_name = make_outfile_name(file);
 	
-	/*Open files*/
+	/*Open file streams*/
 	std::ifstream	in(file);
 	std::ofstream	out(of_name);
 

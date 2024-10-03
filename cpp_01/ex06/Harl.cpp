@@ -3,15 +3,9 @@
 
 void Harl::complain( std::string level )
 {
-	// ReturnType (ClassName::*pointerName)(parameterTypes);
-//  typedef void (Harl::*fptr)(void);
+	std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	typedef void (Harl::*func_ptr)(void);//Why type def???
-
-	// pointerName = &ClassName::MemberFunctionName;
-	func_ptr function[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-// fptr functions[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::string levels[4] = {"DEBUG", "ERROR", "INFO", "WARNING"};
+	void (Harl::*function[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
 	int i;
 	for (i = 0; i < 4; i++)
@@ -47,6 +41,6 @@ void Harl::warning( void )
 
 void Harl::error( void )
 {
-	std::cout << "This is unacceptable! I want to speak to the manager now. I want to speak to the manager now." << std::endl;
+	std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
