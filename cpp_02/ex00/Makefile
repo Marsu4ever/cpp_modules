@@ -3,6 +3,7 @@ NAME = canon_in_orthodox
 CFLAGS = -Wall -Wextra -Werror -std=c++11
 
 SOURCES =	main.cpp \
+			Fixed.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
