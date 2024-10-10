@@ -13,7 +13,6 @@
 
 /* int	main( void )
 {
-	
 	Fixed		a;
 	Fixed const	b( Fixed( 5.05f ) * Fixed( 2 ) );
 
@@ -27,7 +26,7 @@
 	return 0;
 } */
 
-// 		2. Test Main
+// 		2. User-generated Main
 
 int main(void)
 {

@@ -250,9 +250,13 @@ void	Fixed::setRawBits( int const raw )
 
 int	Fixed::toInt( void ) const
 {
-	int integer;
+	float	decimal;
+	int		integer;
 
-	integer = (this->num)/(1<<(this->bits));
+	decimal = (static_cast<float>(this->num))/(1<<(this->bits));
+	decimal = roundf(decimal);
+
+	integer = static_cast<int>(decimal);
 	return (integer);
 }
 

@@ -42,16 +42,14 @@ class Fixed
 		static Fixed&	max(Fixed &a, Fixed &b);
 		static Fixed&	min(Fixed &a, Fixed &b);
 
+		static const Fixed&	max(const Fixed &a, const Fixed &b);
+		static const Fixed&	min(const Fixed &a, const Fixed &b);
+
 		/* member functions */
 		int		getRawBits( void ) const;
 		void	setRawBits( int const raw );
 		int		toInt( void ) const;
 		float	toFloat( void ) const;
-
-
-
-		static const Fixed&	max(const Fixed &a, const Fixed &b);
-		static const Fixed&	min(const Fixed &a, const Fixed &b);
 
 	private:
 		int					num;
