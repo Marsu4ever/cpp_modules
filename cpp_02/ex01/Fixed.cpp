@@ -20,7 +20,7 @@ Fixed::Fixed(const int number)
 Fixed::Fixed(const float number)
 {
 	std::cout << "Float constructor called" << std::endl;
-	
+
 	(this->num) = static_cast<int>(roundf(number*(1 << (this->bits))));
 }
 
@@ -49,6 +49,7 @@ Fixed& Fixed::operator=(const Fixed& other)
 
 
 /* -----------------member functions------------------- */
+
 int Fixed::getRawBits( void ) const
 {
 	return (this->num);
@@ -61,9 +62,13 @@ void	Fixed::setRawBits( int const raw )
 
 int	Fixed::toInt( void ) const
 {
-	int integer;
+	float	decimal;
+	int		integer;
 
-	integer = (this->num)/(1<<(this->bits));
+	decimal = (static_cast<float>(this->num))/(1<<(this->bits));
+	decimal = roundf(decimal);
+
+	integer = static_cast<int>(decimal);
 	return (integer);
 }
 
@@ -91,6 +96,7 @@ void	Fixed::check_max_min_values(int number)
 
 
 /* ---------------------free functions----------------------- */
+
 std::ostream&	operator<<(std::ostream& os, const Fixed& obj)
 {
 	os << obj.toFloat();
