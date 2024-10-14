@@ -11,17 +11,22 @@ ClapTrap::ClapTrap() : name("Default"), hit_points(10), energy_points(10), attac
 
 ClapTrap::ClapTrap(std::string name) : name(name), hit_points(10), energy_points(10), attack_damage(0) 
 {
-	std::cout << "Constructor: " << name << std::endl;
+	std::cout << "ClapTrap: Constructor: " << name << std::endl;
+}
+
+ClapTrap::ClapTrap(std::string name, unsigned int hp, unsigned int ep, unsigned int ad) : name(name), hit_points(hp), energy_points(ep), attack_damage(ad)
+{
+	std::cout << "ClapTrap: Constructor: " << name << std::endl;
 }
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "Destructor: " << name << std::endl;
+	std::cout << "ClapTrap: Destructor: " << name << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
-	std::cout << "Copy Constructor: " << other.name << std::endl;
+	std::cout << "ClapTrap: Copy Constructor: " << other.name << std::endl;
 
 	this->name			= other.name;
 	this->hit_points 	= other.hit_points;
@@ -31,14 +36,13 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 {
-	
 	if (this == &other)
 	{
-		std::cerr << "Copy Assignment Operator: Error: Tried to copy self - " << other.name << std::endl;
+		std::cerr << "ClapTrap: Copy Assignment Operator: Error: Tried to copy self - " << other.name << std::endl;
 		return (*this);
 	}
 
-	std::cout << "Copy Assignment Operator: " << other.name <<  " REPLACES " << this->name << std::endl;
+	std::cout << "ClapTrap: Copy Assignment Operator: " << other.name <<  " REPLACES " << this->name << std::endl;
 	this->name			= other.name;
 	this->hit_points 	= other.hit_points;
 	this->energy_points	= other.energy_points;

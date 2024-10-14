@@ -1,9 +1,11 @@
-NAME = ClapTrap
+NAME = FragTrap
 
 CFLAGS = -Wall -Wextra -Werror -std=c++11
 
 SOURCES =	main.cpp \
 			ClapTrap.cpp \
+			FragTrap.cpp \
+			ScavTrap.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
