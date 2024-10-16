@@ -14,13 +14,12 @@ class Brain
 		Brain(const Brain& other);
 		Brain& operator=(const Brain& other);
 
-
-		std::string ideas[100];		//private/public?
-						// -> called from constructors (private is ok)
-
+		/* Methods... */
+		void set_idea(const std::string &idea);
 		void print_ideas();
 
 	private:
+		std::string ideas[100];
 
 };
 

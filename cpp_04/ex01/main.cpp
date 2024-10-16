@@ -42,78 +42,122 @@
 			-must be deep
 */
 
-Brain::Brain()
+/* int main(void)
 {
-	std::cout << "Brain: Constructor" << std::endl;	
-	ideas[0] = "a";
-	ideas[1] = "b";
-	ideas[2] = "c";
-}
+	//Test constructors and destructors
+	Animal*	a = new Cat();
+	delete a;
 
-Brain::~Brain()
+	return (0);
+} */
+
+/* int main(void)
 {
-	std::cout << "Brain: Destructor" << std::endl;
-}
+	//Test - Put ideas and Print ideas
+	Cat*	cat = new Cat();
 
-Brain::Brain(const Brain& other)
+	cat->put_idea("1");
+	cat->put_idea("Want");
+	cat->put_idea("Foodie!");
+
+	cat -> print_brain();
+	delete cat;
+
+	return (0);
+} */
+
+/* int main(void)
 {
-	std::cout << "Brain: Copy Constructor" << std::endl;	
+	//Test - Deep Copying (with assignment operator) a Cat and its Ideas
+	Cat*	cat1 = new Cat();
+	Cat*	cat2 = new Cat();	
 
-	for(int i = 0; i < 100; i++)
-	{
-		this->ideas[i] = other.ideas[i];
-		if (other.ideas[i] != "")
-		{
-			std:: cout << other.ideas[i] << std::endl;
-		}
-	}
-}
+	cat1->put_idea("I'm");
+	cat1->put_idea("HHUNGRY!");
 
-Brain&	Brain::operator=(const Brain& other)
+	std::cout << std::endl;
+	cat1 -> print_brain();
+	std::cout << std::endl;
+
+	*cat2 = *cat1;
+	cat1 -> put_idea("I'm the First Cat!");
+	cat2 -> put_idea("I'm the Second Cat!");
+
+	std::cout << std::endl;
+	cat2 -> print_brain();
+	std::cout << std::endl;
+
+	delete cat1;
+	delete cat2;
+
+	return (0);
+} */
+
+/* int main(void)
 {
-if (this == &other)
-	{
-		std::cerr << "Copy Assignment Operator: Error: Tried to copy self" << std::endl;
-		return (*this);
-	}
+	//Deep copies with Copy Constructor 
+	Cat*	cat1 = new Cat();
 
-	/*
-		-delete???
-	*/
+	cat1->put_idea("I'm");
+	cat1->put_idea("HHUNGRY!");
 
-	std::cout << "Copy Assignment Operator: Brain" << std::endl;	
-	for(int i = 0; i < 100; i++)
-	{
-		this->ideas[i] = other.ideas[i];
-	}
+	std::cout << std::endl;
+	cat1 -> print_brain();
+	std::cout << std::endl;
 
-	return (*this);	
-}
+	Cat cat2(*cat1);
 
-void Brain::print_ideas()
-{
-	int	i;
+	std::cout << std::endl;
+	cat2.put_idea("prrrrrrrrrrrr");
 
-	i = 0;
-	while (i < 100)
-	{
-		if (this->ideas[i] != "")
-		{
-			std::cout << this->ideas[i] << std::endl;
-		}
-		i++;
-	}
-}
+	cat2.print_brain();
+	std::cout << std::endl;
+
+	delete cat1;
+
+	return (0);
+} */
+
 
 
 
 int main(void)
 {
-	// Brain	a;
+	// Array test 
+
+	const Animal* array[4] = {new Dog(), new Dog(), new Cat(), new Cat()}; // Try- catch
+
+	const Dog* dog = dynamic_cast<const Dog *>(array[0]);
+
+
+	dog->put_idea("I'm a dog!");
+	dog->put_idea("It's true.");
+
+	std::cout << std::endl;
+	dog->print_brain();
+	std::cout << std::endl;
+
+	const Cat* cat = dynamic_cast<const Cat *>(array[2]);
 	
-	// a.ideas[0] = "d";
-	// a.ideas[1] = "e";
-	// a.ideas[2] = "f";
+	cat->put_idea("Cats like to climb trees.");
+	cat->print_brain();
+	
+	std::cout << std::endl;
+
+	for (int i = 0; i < 4; i++)
+	{
+		delete array[i];
+	}
+
+	return (0);
+
+
+
+
+
+	// a.ideas[1] = "d";
+	// a.ideas[2] = "e";
+	// a.ideas[3] = "f";
 	// a.print_ideas();
 
 	// Brain b(a);
@@ -141,18 +185,23 @@ int main(void)
 
 	// c3 = c1;
 	
+	// const Animal* var = new Dog();
 
-	const Animal* array[4] = {new Dog(), new Dog(), new Cat(), new Cat()}; // Try- catch
-	(void)array;
 
-	/*
-		-tests for deep copies
-	*/
 
-	for (int i = 0; i < 4; i++)
-	{
-		delete array[i];
-	}
+	// delete var;
+
+	// const Animal* array[4] = {new Dog(), new Dog(), new Cat(), new Cat()}; // Try- catch
+	// (void)array;
+
+	// /*
+	// 	-tests for deep copies
+	// */
+
+	// for (int i = 0; i < 4; i++)
+	// {
+	// 	delete array[i];
+	// }
 
 
 
@@ -171,5 +220,5 @@ int main(void)
 	// std::cout << std::endl;
 
 	// delete dog;
-	return (0);
+	// return (0);
 }

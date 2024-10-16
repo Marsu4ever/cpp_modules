@@ -21,6 +21,7 @@ Animal::~Animal()
 
 Animal::Animal(const Animal &other)
 {
+	std::cout << "Animal: Copy Constructor" << std::endl;
 	this->type = other.type;
 }
 

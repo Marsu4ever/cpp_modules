@@ -48,3 +48,19 @@ void Dog::makeSound() const
 {
 	std::cout << this->sound << std::endl;
 }
+
+void	Dog::put_idea(const std::string &idea) const
+{
+	if (this->brain != nullptr)
+	{
+		this->brain->set_idea(idea);
+	}
+}
+
+void	Dog::print_brain() const
+{
+	if (this-> brain != nullptr)
+	{
+		this -> brain -> print_ideas();
+	}
+}

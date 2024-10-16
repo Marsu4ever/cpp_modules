@@ -37,7 +37,6 @@ Cat& Cat::operator=(const Cat& other)
 		return (*this);
 	}
 
-
 	Animal::operator=(other);
 
 	std::cout << "Copy Assignment Operator: Cat REPLACES " << other.type << std::endl;	
@@ -51,7 +50,23 @@ Cat& Cat::operator=(const Cat& other)
 
 /* ----------------------- Methods... ----------------------- */
 
-void Cat::makeSound() const
+void	Cat::makeSound() const
 {
 	std::cout << this->sound << std::endl;
+}
+
+void	Cat::put_idea(const std::string &idea) const
+{
+	if (this->brain != nullptr)
+	{
+		this->brain->set_idea(idea);
+	}
+}
+
+void	Cat::print_brain() const
+{
+	if (this-> brain != nullptr)
+	{
+		this -> brain -> print_ideas();
+	}
 }
