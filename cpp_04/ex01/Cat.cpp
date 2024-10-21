@@ -7,12 +7,12 @@
 Cat::Cat() : Animal("Cat")
 {
 	std::cout << "Cat: Constructor" << std::endl;
-	this->brain = new Brain();			//FOR DOG!!!!!!	//Try-Catch???
+	this->brain = new Brain();
 }
 
 Cat::~Cat()
 {
-	delete (this->brain);				//FOR DOG!!!!!!
+	delete (this->brain);
 	std::cout << "Cat: Destructor" << std::endl;
 }
 
@@ -20,13 +20,7 @@ Cat::Cat(const Cat &other) : Animal(other)
 {
 	std::cout << "Cat: Copy Constructor" << std::endl;
 
-	/*
-		-no need for clean up since it's copying here and uninitialized obj
-		-copy brain
-			-HOW?
-	*/
-	this->brain = new Brain(*other.brain);				//FOR DOG!!!!!! // If fails???
-	
+	this->brain = new Brain(*other.brain);
 }
 
 Cat& Cat::operator=(const Cat& other)
@@ -41,8 +35,8 @@ Cat& Cat::operator=(const Cat& other)
 
 	std::cout << "Copy Assignment Operator: Cat REPLACES " << other.type << std::endl;	
 
-	delete(this->brain);								//Is this good?
-	this->brain = new Brain(*other.brain);				//Try catch???
+	delete(this->brain);
+	this->brain = new Brain(*other.brain);
 
 	return (*this);
 }

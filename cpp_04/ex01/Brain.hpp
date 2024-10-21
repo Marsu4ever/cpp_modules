@@ -3,7 +3,7 @@
 # define BRAIN_HPP
 
 #include <string>
-#include <iostream>     //Here or in the main???
+#include <iostream>
 
 class Brain
 {

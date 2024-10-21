@@ -7,9 +7,6 @@
 Brain::Brain()
 {
 	std::cout << "Brain: Constructor" << std::endl;	
-	// ideas[0] = "I";
-	// ideas[1] = "am";
-	// ideas[2] = "Hungry";
 }
 
 Brain::~Brain()
@@ -67,28 +64,23 @@ void Brain::print_ideas()
 	}
 	if (i == 0) 
 	{
-		std::cout << "My Brain Doesn't have no ideas. :)" << std::endl;
+		std::cout << "My Brain Doesn't have any ideas. :)" << std::endl;
 	}
 }
 
 void Brain::set_idea(const std::string &idea)
 {
-	/*
-		-set thought protection?
-	*/
-
-	for (int i = 0; i < 100; i++)
+	int i;
+	for (i = 0; i < 100; i++)
 	{
 		if (ideas[i] == "")
 		{
-			//set thought
 			ideas[i] = idea;
 			break ;
 		}
 	}
-
-	/*
-		if empty
-			-> go to next thought
-	*/
+	if (i == 100)
+	{
+		std::cout << "Brain is full" << std::endl;
+	}
 }
