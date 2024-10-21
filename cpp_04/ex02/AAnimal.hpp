@@ -1,6 +1,6 @@
 
-#ifndef AAnimal_HPP
-# define AAnimal_HPP
+#ifndef AANIMAL_HPP
+# define AANIMAL_HPP
 
 #include <string>
 #include <iostream>
