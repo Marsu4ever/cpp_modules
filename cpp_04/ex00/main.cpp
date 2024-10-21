@@ -15,7 +15,6 @@
 			2. Cat
 			3. Animal
 			4. Wrong Cat
-			5. Wrong animal
 
 		(There may be some repetition... repetition... repetition)
 */
@@ -86,25 +85,3 @@ int main(void)
 	delete wrong_cat;
 	return (0);
 } */
-
-/* int main(void)
-{
-	const WrongAnimal* wrong_animal = new WrongAnimal();
-
-	std::cout << std::endl;
-
-	std::cout << "Type: ";
-	std::cout << wrong_animal -> getType() << std::endl;
-	std::cout << "Sound: ";
-	wrong_animal -> makeSound();
-
-	std::cout << std::endl;
-
-	delete wrong_animal;
-	return (0);
-} */
-
-
-
-
-
