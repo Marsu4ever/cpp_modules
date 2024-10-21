@@ -24,7 +24,7 @@ int main(void)
 	me->use(1, *bob);
 	delete bob;
 	delete me;
-	delete src;
+	delete src; 
 
 /* 	IMateriaSource* src = new MateriaSource();
 
