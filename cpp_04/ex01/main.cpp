@@ -2,18 +2,17 @@
 #include "Cat.hpp"
 #include "Dog.hpp"
 
-/* int main(void)
-{
-	//Test constructors and destructors
-	Animal*	a = new Cat();
-	delete a;
+/*
+	Tests
+		1. Put ideas and Print ideas
+		2. Deep Copying a Cat and its Ideas
+		3. Array test 
+		
+*/
 
-	return (0);
-} */
-
-/* int main(void)
+int main(void)
 {
-	//Test 1 - Put ideas and Print ideas
+	//1. Put ideas and Print ideas
 	Cat*	cat = new Cat();
 
 	cat->put_idea("Cats");
@@ -28,12 +27,12 @@
 
 	delete cat;
 
-	return (0);
-} */
+	 return (0);
+}
 
 /* int main(void)
 {
-	//Test 2 - Deep Copying a Cat and its Ideas
+	//2. Deep Copying a Cat and its Ideas
 	Cat*	cat1 = new Cat();
 	Cat*	cat2 = new Cat();	
 
@@ -60,33 +59,7 @@
 
 /* int main(void)
 {
-	//Deep copies with Copy Constructor 
-	Cat*	cat1 = new Cat();
-
-	cat1->put_idea("I'm");
-	cat1->put_idea("HHUNGRY!");
-
-	std::cout << std::endl;
-	cat1 -> print_brain();
-	std::cout << std::endl;
-
-	Cat cat2(*cat1);
-
-	std::cout << std::endl;
-	cat1->put_idea("not prrrrrrrrrrrr");
-	cat2.put_idea("prrrrrrrrrrrr");
-
-	cat2.print_brain();
-	std::cout << std::endl;
-
-	delete cat1;
-
-	return (0);
-} */
-
-int main(void)
-{
-	// Test 3 - Array test 
+	// 3. Array test 
 
 	const Animal* array[4] = {new Dog(), new Dog(), new Cat(), new Cat()};
 
@@ -112,4 +85,4 @@ int main(void)
 	}
 
 	return (0);
-}
+} */

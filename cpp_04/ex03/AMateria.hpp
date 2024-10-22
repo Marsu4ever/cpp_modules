@@ -8,27 +8,26 @@
 
 class ICharacter;		//Forward Declaration
 
-// #include "ICharacter.hpp"
-
 class AMateria
 {
 	protected:
-		//[...]
-		std::string		type; 						// should this be const?
+		std::string		type;
+		bool			equipped;
 
 	public:
 		/* Orthodox canon */
-						AMateria(const std::string &type);// Is this one also virtual?
+						AMateria(const std::string &type);
 		virtual			~AMateria();
 						AMateria(const AMateria &other);
 		const AMateria&	operator=(const AMateria &other);
-		//[...]
 
 
 		/* Methods... */
 
-				const std::string&	getType()	const; //Returns the materia type -> Shouldn't this be = 0?
-		virtual	AMateria*			clone()		const = 0;
+				const std::string&	getType()		const;
+				bool				get_equipped()	const;
+				void				set_equipped(bool boolean);
+		virtual	AMateria*			clone()			const = 0;
 		virtual void				use(ICharacter& target) = 0;
 
 };

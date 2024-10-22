@@ -4,27 +4,17 @@
 
 Ice::Ice() : AMateria("ice")
 {
-	std::cout << "Constructor: Ice" << std::endl;
+	// std::cout << "Constructor: Ice" << std::endl;
 }
-
-// Ice::Ice(const std::string &type) : AMateria(type)
-// {
-// 	std::cout << "(Parameterized) Constructor: Ice" << std::endl;
-// }
 
 Ice::~Ice()
 {
-	std::cout << "Destructor: Ice" << std::endl;
+	// std::cout << "Destructor: Ice" << std::endl;
 }
 
-Ice::Ice(const Ice &other) : AMateria(other) //This copying is ok. since this didn't exist.
+Ice::Ice(const Ice &other) : AMateria(other)
 {
-	std::cout << "Copy Constructor: Ice" << std::endl;
-	/*
-		-copy data
-			-materia doesn't have state that changes...
-				->So this is fine.
-	*/
+	// std::cout << "Copy Constructor: Ice" << std::endl;
 }
 
 const Ice&	Ice::operator=(const Ice &other)
@@ -36,38 +26,19 @@ const Ice&	Ice::operator=(const Ice &other)
 		return (*this);
 	}
 
-	std::cout << "Copy Assignment Operator: Ice" << std::endl;
-	// AMateria::operator=(other); // No need to copy anything. Because Materia are the same. 
+	// std::cout << "Copy Assignment Operator: Ice" << std::endl;
 
 	return (*this);
 }
 
 AMateria*	Ice::clone() const
 {
-	/*
-		-call copy constructor???
-		-new?
-		-typecasting???
-			-dynamic cast
-	*/
-
-	/*
-		-use copy constructor
-	*/
-
-	/*
-		1. Should this function be able to copy an Ice object typecasted to an AMateria object
-			->maybe
-		2. Should this function be able to copy AMateria?
-			-> probably not 
-	*/
-
 	AMateria *ptr = new Ice(*this);
 	
-	return (ptr);//Change later... I'm pretty sure I don't need to!
+	return (ptr);
 }
 
 void		Ice::use(ICharacter& target)
 {
-	std::cout << "* shoots an ice bolt at " << target.getName() << std::endl;
+	std::cout << "* shoots an ice bolt at " << target.getName() << " *" <<  std::endl;
 }

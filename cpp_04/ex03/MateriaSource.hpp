@@ -18,8 +18,7 @@ class MateriaSource : public IMateriaSource
 		AMateria*	createMateria(std::string const & type) override;
 
 	private:
-		AMateria*			source[4];//Private?
+		AMateria*			source[4];
 };
 
 #endif
-

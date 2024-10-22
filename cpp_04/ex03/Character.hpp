@@ -2,8 +2,7 @@
 #ifndef CHARACTER_HPP
 # define CHARACTER_HPP
 
-// # include "AMateria.hpp"
-# include "ICharacter.hpp"		//Comment out...
+# include "ICharacter.hpp"
 
 class Character : public ICharacter
 {
@@ -11,7 +10,7 @@ class Character : public ICharacter
 		/* Orthodox canon */
 							// Character();
 							Character(const std::string &name);
-							~Character();                           //Probably don't need virtual here...
+							~Character();
 							Character(const Character &other);
 		const Character&	operator=(const Character &other);
 
@@ -19,7 +18,7 @@ class Character : public ICharacter
 		const std::string&	getName() const override;
 		void				equip(AMateria* m) override;
 		void				unequip(int idx) override;
-		void				use(int idx, ICharacter& target) override;    //Use ICharacter here?
+		void				use(int idx, ICharacter& target) override;
 
 	private:
 		std::string			name;

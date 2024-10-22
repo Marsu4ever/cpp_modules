@@ -6,7 +6,6 @@ SOURCES =	main.cpp \
 			AMateria.cpp \
 			Character.cpp \
 			Cure.cpp \
-			ICharacter.cpp \
 			Ice.cpp \
 			MateriaSource.cpp \
 

@@ -9,7 +9,6 @@ class Ice : public AMateria
 	public: 
 		/* Orthodox canon */
 					Ice();
-					// Ice(const std::string &type);
 					~Ice();
 					Ice(const Ice &other);
 		const Ice&	operator=(const Ice &other);
@@ -17,12 +16,6 @@ class Ice : public AMateria
 		/* Methods... */
 		AMateria*			clone() 				const	override;
 		void				use(ICharacter& target) 		override;		
-
-	protected:
-		
-
-	private:
-
 
 };
 

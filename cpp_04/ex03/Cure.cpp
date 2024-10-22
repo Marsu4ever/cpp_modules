@@ -4,18 +4,18 @@
 
 Cure::Cure() : AMateria("cure")
 {
-	std::cout << "Constructor: Cure" << std::endl;
+	// std::cout << "Constructor: Cure" << std::endl;
 }
 
 
 Cure::~Cure()
 {
-	std::cout << "Destructor: Cure" << std::endl;
+	// std::cout << "Destructor: Cure" << std::endl;
 }
 
 Cure::Cure(const Cure &other) : AMateria(other)
 {
-	std::cout << "Copy Constructor: Cure" << std::endl;
+	// std::cout << "Copy Constructor: Cure" << std::endl;
 }
 
 const Cure&		Cure::operator=(const Cure &other)
@@ -27,7 +27,7 @@ const Cure&		Cure::operator=(const Cure &other)
 		return (*this);
 	}
 
-	std::cout << "Copy Assignment Operator: Cure" << std::endl;
+	// std::cout << "Copy Assignment Operator: Cure" << std::endl;
 
 	return (*this);
 }

@@ -1,15 +1,9 @@
 
 #include "Character.hpp"
-// #include "c"
 
-// Character::Character()
-// {
-// 	std::cout << "Constructor: Character" << std::endl;
-// }
-
-Character::Character(const std::string &name) : ICharacter(), name(name)
+Character::Character(const std::string &name) : name(name)
 {
-	std::cout << "Constructor: Character" << std::endl;
+	// std::cout << "Constructor: Character" << std::endl;
 	for (int i = 0; i < 4; i++)
 	{
 		inventory[i] = nullptr;
@@ -18,7 +12,7 @@ Character::Character(const std::string &name) : ICharacter(), name(name)
 
 Character::~Character()
 {
-	std::cout << "Destructor: Character" << std::endl;
+	// std::cout << "Destructor: Character" << std::endl;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -32,9 +26,9 @@ Character::~Character()
 
 }
 
-Character::Character(const Character &other) : ICharacter(other)
+Character::Character(const Character &other)
 {
-	std::cout << "Copy Constructor: Character" << std::endl;
+	// std::cout << "Copy Constructor: Character" << std::endl;
 	
 	this -> name = other.name;
 
@@ -42,7 +36,8 @@ Character::Character(const Character &other) : ICharacter(other)
 	{
 		if (other.inventory[i] != nullptr)
 		{
-			this->inventory[i] = other.inventory[i] -> clone();	//cloning Materia (Ice or Cure)
+			this->inventory[i]				= other.inventory[i] -> clone();//cloning Materia (Ice or Cure)
+			this->inventory[i] -> set_equipped(true);
 		}
 		else
 		{
@@ -59,7 +54,7 @@ const Character&		Character::operator=(const Character &other)
 		return (*this);
 	}
 
-	std::cout << "Copy Assignment Operator: Character" << std::endl;
+	// std::cout << "Copy Assignment Operator: Character" << std::endl;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -75,7 +70,8 @@ const Character&		Character::operator=(const Character &other)
 	{
 		if (other.inventory[i] != nullptr)
 		{
-			this->inventory[i] = other.inventory[i] -> clone();	//cloning Materia (Ice or Cure)
+			this->inventory[i]				= other.inventory[i] -> clone();	//cloning Materia (Ice or Cure)
+			this->inventory[i] -> set_equipped(true);
 		}
 		else
 		{
@@ -88,7 +84,7 @@ const Character&		Character::operator=(const Character &other)
 
 const std::string&	Character::getName() const
 {
-    return (this->name);
+	return (this->name);
 }
 
 void	Character::equip(AMateria* m)
@@ -98,6 +94,7 @@ void	Character::equip(AMateria* m)
 	/*	nullptr check*/
 	if (m == nullptr)
 	{
+		std::cout << "Can't Equip Materia that is a nullptr." << std::endl;
 		return ;
 	}
 
@@ -106,9 +103,16 @@ void	Character::equip(AMateria* m)
 	{
 		if (inventory[i] == m)
 		{
-			std::cout << "Can't Equip Materia that is already Equiped (Slot " << i << ")." << std::endl;
+			std::cout << "Can't Equip Materia that is already Equiped by Character (Slot " << i << ")." << std::endl;
 			return ;
-		} 
+		}
+	}
+
+	/* 	Equipped by another Character - check */
+	if (m->get_equipped() == true)
+	{
+		std::cout << "Can't Equip Materia because it is already equipped by ANOTHER Character." << std::endl;
+		return ;
 	}
 
 	/* 	Put into Inventory	*/
@@ -116,8 +120,8 @@ void	Character::equip(AMateria* m)
 	{
 		if (inventory[i] == nullptr)
 		{
-			inventory[i] = m;//This looks right.
-
+			inventory[i]	= m;
+			m -> set_equipped(true);
 			break ;
 		}
 	}
@@ -131,7 +135,7 @@ void	Character::equip(AMateria* m)
 	{
 		std::cout << "Inventory Full. Can't equip Materia." << std::endl;
 	}
-	
+
 }
 
 void	Character::unequip(int idx)
@@ -151,8 +155,10 @@ void	Character::unequip(int idx)
 	}
 
 	/* 	Unequip Materia	*/
-	inventory[idx] = nullptr; 	// I have to consider how things are freed. I guess I free the stuff on the floor?
 	std::cout << "Unequiped Materia from Slot " << idx << "." << std::endl;
+
+	inventory[idx] -> set_equipped(false);
+	inventory[idx] = nullptr;
 }
 
 void	Character::use(int idx, ICharacter& target)
