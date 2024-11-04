@@ -24,6 +24,7 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
+	find . -type f -name '*shrubbery' -exec rm -f {} +
 
 re: fclean all
 

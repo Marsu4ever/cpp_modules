@@ -4,10 +4,6 @@
 
 # include <string>
 # include <iostream>
-# include <fstream>
-
-
-class AForm;
 
 class Bureaucrat
 {
@@ -25,10 +21,6 @@ class Bureaucrat
 
 		void				increaseGrade();
 		void				decreaseGrade();
-
-		/* Main Methods */
-		void				signForm(AForm& form);
-		void				executeForm(AForm const & form);
 
 		/* Nested Class Methods */
 		class GradeTooHighException : public std::exception
@@ -52,3 +44,4 @@ class Bureaucrat
 std::ostream&	operator<<(std::ostream& out, const Bureaucrat& self);
 
 #endif 
+

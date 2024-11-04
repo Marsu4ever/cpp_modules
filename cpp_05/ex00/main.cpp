@@ -1,135 +1,122 @@
 
-#include <string>
-#include <iostream>
-
-
-/*
-	Notes
-		
-		
-*/
-
-//Bureaucrat::GradeTooHighException
-
-//Bureaucrat::GradeTooLowException
-
-class Bureaucrat
-{
-	public:
-		/* Orthodox Canonical Form */
-							Bureaucrat();
-							Bureaucrat(const std::string& name, int grade);
-							~Bureaucrat();
-							Bureaucrat(const Bureaucrat& other);
-		const Bureaucrat&	operator=(const Bureaucrat& other);
-
-		/*Methods... */
-		const std::string&	getName()	const;
-		int					getGrade()	const;
-
-		void				increment();
-		void				decrement();
-
-		//overload << insertion
-
-	private:
-		const std::string	name;
-		int					grade; 	//[1-150] [high-low]
-};
-
-std::ostream&	operator<<(std::ostream& out, const Bureaucrat& self);
-
-
-
-
-Bureaucrat::Bureaucrat() : name("default"), grade(150)
-{
-	// std::cout << "(default) Constructor: Bureaucrat" << std::endl;
-	
-	/*
-		-print out details?
-	*/
-}
-
-Bureaucrat::Bureaucrat(const std::string& name, int grade): name(name), grade(grade)
-{
-	// std::cout << "(parameterized) Constructor: Bureaucrat" << std::endl;
-	if (grade < 1)
-	{
-		;
-	}
-	if (grade > 150)
-	{
-		;
-	}
-}
-
-Bureaucrat::~Bureaucrat()
-{
-	// std::cout << "Destructor: Bureaucrat" << std::endl;
-}
-
-Bureaucrat::Bureaucrat(const Bureaucrat& other)
-{
-	// std::cout << "Copy Constructor: Bureaucrat" << std::endl;
-	
-	this -> grade	= other.grade;
-}
-
-const Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& other)
-{
-	if (this == &other)
-	{
-		std::cerr << "Error: Tried to assign to self" << std::endl;
-		return (*this);
-	}
-	// std::cout << "Copy Assignment Operator: Bureaucrat" << std::endl;
-
-	this -> grade	= other.grade;
-
-	return (*this);
-}
-
-const std::string&	Bureaucrat::getName() const
-{
-	return (this -> name);
-}
-
-void	Bureaucrat::increment()
-{
-	this -> grade--;
-}
-
-void	Bureaucrat::decrement()
-{
-	this -> grade++;
-}
-
-int		Bureaucrat::getGrade()	const
-{
-	return (this->grade);
-}
-
-std::ostream&	operator<<(std::ostream& out, const Bureaucrat& b)
-{
-	out << b.getName();
-	out << " - grade: ";
-	out << b.getGrade();
-	return (out);
-}
+#include "Bureaucrat.hpp"
 
 int main(void)
 {
-	Bureaucrat bill("bill", 10);
-	bill.increment();
-	
-	std::cout << bill.getGrade() << std::endl;
-	
-	bill.decrement();
+	Bureaucrat guy("guy", 2);
+	std::cout << guy << std::endl;
 
-	std::cout << bill.getGrade() << std::endl;
+	guy.decreaseGrade();
+	std::cout << guy << std::endl;
 
-	std::cout << bill<< std::endl;
+	guy.increaseGrade();
+	std::cout << guy << std::endl;
+
+	guy.increaseGrade();
+	std::cout << guy << std::endl;
+
+	try
+	{
+		guy.increaseGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << guy << std::endl;
 
 	return (0);
 }
+
+/* int main(void)
+{
+
+	std::cout << "Noob: \n";
+	try
+	{
+		Bureaucrat noobie("noob", 151);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << '\n';
+
+
+	std::cout << "Mr. OverPowered: \n";
+	try
+	{
+		Bureaucrat op("Mr. OverPowered", 0);
+	}
+	catch(const Bureaucrat::GradeTooLowException& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	catch(const Bureaucrat::GradeTooHighException& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << '\n';
+
+
+
+	std::cout << "im_null_name: \n";
+	try
+	{
+		Bureaucrat im_null_name(nullptr, 42);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << '\n';
+
+	return (0);
+} */
+
+
+/* int main(void)
+{
+	Bureaucrat* lower_guy;
+	try
+	{
+		lower_guy = new Bureaucrat("lower guy", 148);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << *lower_guy << std::endl;
+
+	try
+	{
+		lower_guy->decreaseGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << *lower_guy << std::endl;
+
+	try
+	{
+		lower_guy->decreaseGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << *lower_guy << std::endl;
+
+	try
+	{
+		lower_guy->decreaseGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << *lower_guy << std::endl;
+	delete (lower_guy);
+	return (0);
+} */

@@ -3,51 +3,8 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-/*
-	AForm.hpp/cpp
 
-	-form's attributes remain PRIVATE
-	-becomes ABSTRACT class
-	
-	-one param in constructor (target)
-
-	ShrubberyCreationForm:
-	-sign 145
-	-exec 137
-	-creates a file <target>_shrubbery in the working directory, and writes ASCII trees inside it.
-
-	RobotomyRequestForm:
-	-sign 72
-	-exec 45
-
-	1. Makes some drilling noises
-	2. informs that <target> has been robotomized successfully 50% of the time.
-	3. or informs Has FAILED
-
-	PresidentialPardonForm:
-	-sign 25
-	-exec 5
-	-Informs that <target> has been pardoned by Zaphod Beeblebrox
-
-	Method
-	-execute(Bureaucrat const & executor) const
-		-> base Form! -> ABSTRACT
-		-check if form signed
-		-check if bureaucrat level sufficient
-			-if not throw exception
-
-		-polymorphism
-			-start in derived calls base class for CHECKS
-
-	executeForm(AForm const & form)
-		-into Bureaucrat
-		if Succeed
-			-<bureaucrat> executed <form>
-		if Not
-			-error msg
-*/
-
-/* int main(void)
+int main(void)
 {
 	Bureaucrat bureaucrat1("Joe", 1);
 	Bureaucrat bureaucrat2("Newbie", 150);
@@ -72,7 +29,7 @@
 	bureaucrat2.signForm(form2);
 
 	return (0);
-} */
+}
 
 /* int main(void)
 {
@@ -111,7 +68,7 @@
 	return (0);
 } */
 
-int main(void)
+/* int main(void)
 {
 	Bureaucrat bureaucrat("Joe", 1);
 	
@@ -122,4 +79,4 @@ int main(void)
 	bureaucrat.executeForm(form1);
 
 	return (0);
-}
+} */

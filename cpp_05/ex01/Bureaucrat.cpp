@@ -1,6 +1,6 @@
 
 #include "Bureaucrat.hpp"
-#include "AForm.hpp"
+#include "Form.hpp"
 
 
 /* ---------------- Orthodox Canonical Form ---------------- */
@@ -78,9 +78,9 @@ int		Bureaucrat::getGrade()	const
 }
 
 
-/* ------------------- Main Methods ------------------- */
+/* ------------------- Main functions ------------------- */
 
-void	Bureaucrat::signForm(AForm& form)
+void	Bureaucrat::signForm(Form& form)
 {
 	/* Check if Form Already SIGNED	*/
 	if (form.get_is_signed() == true)
@@ -101,37 +101,6 @@ void	Bureaucrat::signForm(AForm& form)
 		std::cerr << e.what() << '\n';
 		std::cout << this -> getName() << " couldn't sign form \"" << form.get_name();
 		std::cout << "\" because Bureaucrat's level was TOO LOW" << std::endl;	
-	}
-}
-
-void	Bureaucrat::executeForm(const AForm& form)
-{
-	try
-	{
-		form.execute(*this);
-
-		/* Print success */
-		std::cout << this -> getName() << " executed form \"" << form.get_name() << "\"" << std::endl;
-	}
-	catch (const AForm::FormNotSigned& e)
-	{
-		std::cerr << e.what() << '\n';
-
-		/* Explicit error message */
-		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because it is NOT SIGNED." << std::endl;
-	}
-	catch(const AForm::GradeTooLowException& e)
-	{
-		std::cerr << e.what() << '\n';
-
-		/* Explicit error message */
-		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because Bureaucrat's grade was TOO LOW" << std::endl;; 
-	}
-	catch(const std::ios_base::failure& e)
-	{
-		std::cerr << e.what() << '\n';
-		
-		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because file failed to open." << std::endl;
 	}
 }
 

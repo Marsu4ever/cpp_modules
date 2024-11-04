@@ -1,17 +1,17 @@
 
 #include "Bureaucrat.hpp"
-#include "AForm.hpp"
 
 
 /* ---------------- Orthodox Canonical Form ---------------- */
 
 Bureaucrat::Bureaucrat() : name("default"), grade(150)
 {
-
+	std::cout << "(default) Constructor: Bureaucrat" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade): name(name), grade(grade)
 {
+	std::cout << "(parameterized) Constructor: Bureaucrat" << std::endl;
 	if (grade < 1)
 	{
 		throw GradeTooHighException();
@@ -24,11 +24,13 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade): name(name), grade(gr
 
 Bureaucrat::~Bureaucrat()
 {
-
+	std::cout << "Destructor: Bureaucrat" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& other) : name(other.name)
 {
+	std::cout << "Copy Constructor: Bureaucrat" << std::endl;
+	
 	this -> grade	= other.grade;
 }
 
@@ -39,6 +41,7 @@ Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& other)
 		std::cerr << "Error: Tried to assign to self" << std::endl;
 		return (*this);
 	}
+	std::cout << "Copy Assignment Operator: Bureaucrat" << std::endl;
 
 	this -> grade	= other.grade;
 
@@ -76,65 +79,6 @@ int		Bureaucrat::getGrade()	const
 {
 	return (this->grade);
 }
-
-
-/* ------------------- Main Methods ------------------- */
-
-void	Bureaucrat::signForm(AForm& form)
-{
-	/* Check if Form Already SIGNED	*/
-	if (form.get_is_signed() == true)
-	{
-		std::cout << this -> getName() << " couldn't sign form \"" << form.get_name();
-		std::cout << "\" because Form is ALREADY SIGNED" << std::endl;	
-		return ;
-	}
-
-	/* Signing will either Succeed or Fail. "Try" it! ;) */
-	try
-	{
-		form.beSigned(*this);
-		std::cout << this -> getName() << " signed form \"" << form.get_name() << "\"" << std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-		std::cout << this -> getName() << " couldn't sign form \"" << form.get_name();
-		std::cout << "\" because Bureaucrat's level was TOO LOW" << std::endl;	
-	}
-}
-
-void	Bureaucrat::executeForm(const AForm& form)
-{
-	try
-	{
-		form.execute(*this);
-
-		/* Print success */
-		std::cout << this -> getName() << " executed form \"" << form.get_name() << "\"" << std::endl;
-	}
-	catch (const AForm::FormNotSigned& e)
-	{
-		std::cerr << e.what() << '\n';
-
-		/* Explicit error message */
-		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because it is NOT SIGNED." << std::endl;
-	}
-	catch(const AForm::GradeTooLowException& e)
-	{
-		std::cerr << e.what() << '\n';
-
-		/* Explicit error message */
-		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because Bureaucrat's grade was TOO LOW" << std::endl;; 
-	}
-	catch(const std::ios_base::failure& e)
-	{
-		std::cerr << e.what() << '\n';
-		
-		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because file failed to open." << std::endl;
-	}
-}
-
 
 /* ---------------------- Nested Class Methods  ----------------------*/
 

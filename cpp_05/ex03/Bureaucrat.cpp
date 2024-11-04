@@ -1,6 +1,6 @@
 
 #include "Bureaucrat.hpp"
-#include "AForm.hpp"
+#include "Form.hpp"
 
 
 /* ---------------- Orthodox Canonical Form ---------------- */
@@ -80,7 +80,7 @@ int		Bureaucrat::getGrade()	const
 
 /* ------------------- Main Methods ------------------- */
 
-void	Bureaucrat::signForm(AForm& form)
+void	Bureaucrat::signForm(Form& form)
 {
 	/* Check if Form Already SIGNED	*/
 	if (form.get_is_signed() == true)
@@ -104,7 +104,7 @@ void	Bureaucrat::signForm(AForm& form)
 	}
 }
 
-void	Bureaucrat::executeForm(const AForm& form)
+void	Bureaucrat::executeForm(const Form& form)
 {
 	try
 	{
@@ -113,14 +113,14 @@ void	Bureaucrat::executeForm(const AForm& form)
 		/* Print success */
 		std::cout << this -> getName() << " executed form \"" << form.get_name() << "\"" << std::endl;
 	}
-	catch (const AForm::FormNotSigned& e)
+	catch (const Form::FormNotSigned& e)
 	{
 		std::cerr << e.what() << '\n';
 
 		/* Explicit error message */
 		std::cout << this -> getName() << " COULDN'T EXECUTE form \"" << form.get_name() << "\" because it is NOT SIGNED." << std::endl;
 	}
-	catch(const AForm::GradeTooLowException& e)
+	catch(const Form::GradeTooLowException& e)
 	{
 		std::cerr << e.what() << '\n';
 

@@ -7,7 +7,7 @@
 # include <fstream>
 
 
-class AForm;
+class Form;
 
 class Bureaucrat
 {
@@ -27,8 +27,8 @@ class Bureaucrat
 		void				decreaseGrade();
 
 		/* Main Methods */
-		void				signForm(AForm& form);
-		void				executeForm(AForm const & form);
+		void				signForm(Form& form);
+		void				executeForm(Form const & form);
 
 		/* Nested Class Methods */
 		class GradeTooHighException : public std::exception

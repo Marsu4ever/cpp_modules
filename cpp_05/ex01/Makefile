@@ -1,9 +1,10 @@
-NAME = bureaucrat
+NAME = form
 
 CFLAGS = -Wall -Wextra -Werror -std=c++11
 
 SOURCES =	main.cpp \
-			Bureaucrat.cpp
+			Bureaucrat.cpp \
+			Form.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
