@@ -2,6 +2,7 @@
 c++ modules
 
 This consists of 10 cpp_modules that start from basics and advance onward in depth.  
+These are 42 network exercise.  
 
 cpp_00 - Making your 1st class and program in c++  
 cpp_01 - References and arrays  
