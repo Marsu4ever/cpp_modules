@@ -1,6 +1,27 @@
 
 #include "ScalarConverter.hpp"
 
+ScalarConverter::ScalarConverter()
+{
+
+}
+
+ScalarConverter::~ScalarConverter()
+{
+
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter& rhs)
+{
+	(void)rhs;
+}
+
+ScalarConverter&	ScalarConverter::ScalarConverter::operator=(const ScalarConverter& rhs)
+{
+	(void)rhs;
+	return (*this);
+}
+
 void	print_types(char type, char c, int num_int, float num_float, double num_double, int digit_count)
 {
 	if (num_int >= 0 && num_int <= 255)
