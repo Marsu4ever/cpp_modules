@@ -4,7 +4,6 @@
 #include <algorithm>	// std::find()
 #include <iterator>		// std::distance
 
-#include <iostream>
 template <typename T>
 int		easyfind(T& container, int findValue)
 {
@@ -14,7 +13,7 @@ int		easyfind(T& container, int findValue)
 		int		index = std::distance(container.begin(), it);
 		return	(index);
 	}
-	else				// Value not found.
+	else																// Value not found.
 	{
 		return (-1);
 	}
