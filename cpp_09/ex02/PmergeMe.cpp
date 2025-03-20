@@ -139,7 +139,7 @@ void	PmergeMe::insertionVecJacobStyle(std::vector<size_t>& main, std::vector<siz
 	}
 	for (size_t i = 0; i < pending.size(); i++)							//Insert rest of numbers
 	{
-		if (std::find(index_of_added_number.begin(), index_of_added_number.end(), i) != index_of_added_number.end())	//Check Jacobsthal index was used
+		if (std::find(index_of_added_number.begin(), index_of_added_number.end(), i) != index_of_added_number.end())	//Check used Jacobsthal index
 			continue ;
 		size_t	number = pending[i];
 		auto position = std::lower_bound(main.begin(), main.end(), number); 
