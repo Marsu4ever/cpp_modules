@@ -331,14 +331,6 @@ void	PmergeMe::print(char **argv)
 	}
 	std::cout << std::endl;
 
-		std::cout << "After:	";
-
-	for (size_t i = 0; i < this->deq.size(); i++)
-	{
-		std::cout << deq[i] << " ";
-	}
-	std::cout << std::endl;
-
 	//3. Time to Process Vector
 	std::cout << "Time to process a range of " << this->vec.size() << " elements with std::vector : " << this->vec_process_time << " seconds." << std::endl;
 
