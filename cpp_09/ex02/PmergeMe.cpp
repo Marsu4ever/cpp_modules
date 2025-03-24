@@ -87,6 +87,22 @@ int 	PmergeMe::addNumber(std::string integer_string)
 	return (0);
 }
 
+int		PmergeMe::duplicatesCheck()
+{
+	std::vector<size_t> vec_temp;
+	
+	vec_temp = this -> vec;
+
+	std::sort(vec_temp.begin(), vec_temp.end());					//sorts vector
+	if (std::adjacent_find(vec_temp.begin(), vec_temp.end()) != vec_temp.end())	//Checks if there are adjacent duplicates
+	{
+		std::cerr << "Error: No duplicates allowed." << std::endl;	
+		return (1);
+	}
+	return (0);
+}
+
+
 std::vector<size_t>&	PmergeMe::getVector()
 {
 	return (this->vec);
@@ -102,16 +118,59 @@ void		PmergeMe::print_vector(std::vector<size_t>& vec, std::string name)
 	std::cout << std::endl;
 }
 
-std::vector<size_t>	PmergeMe::createjacobsthalSequence(size_t pendingSize)
+/*
+	Find corresponding pair.
+	a1 -> b1
+	a2 -> b2
+	[a values are from larger numbers]
+*/
+size_t	PmergeMe::find_pair(size_t a, std::vector<std::pair<size_t, size_t>>& pairs)
 {
-	std::vector<size_t>	seq;			//jacobsthal sequence (0, 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461...)
+	for (std::pair<size_t, size_t> p : pairs)
+	{
+		if (a == p.first)
+		{
+			// std::cout <<  "Found pair value  (" << p.first  << ", " << p.second << ")" <<  std::endl;
+			return (p.second);
+		}
+	}
+	// std::cerr <<  "Error: Did not find pair value" << std::endl;
+	return (0);
+}
+
+/*
+	Find corresponding pair.
+	a1 -> b1
+	a2 -> b2
+	[a values are from larger numbers]
+*/
+size_t	PmergeMe::find_pair_deq(size_t a, std::deque<std::pair<size_t, size_t>>& pairs)
+{
+	for (std::pair<size_t, size_t> p : pairs)
+	{
+		if (a == p.first)
+		{
+			// std::cout <<  "Found pair value  (" << p.first  << ", " << p.second << ")" <<  std::endl;
+			return (p.second);
+		}
+	}
+	// std::cerr <<  "Error: Did not find pair value" << std::endl;
+	return (0);
+}
+
+/*
+	Create jacobsthal sequence [as vector].
+*/
+std::vector<size_t>	PmergeMe::createJacobsthalSequence(size_t number_of_pairs)
+{
+	std::vector<size_t>	seq;			//sequence (1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461...)
 	size_t				latestNumber;	// i.e.	latest sequence number
 
-	seq.push_back(0);
 	seq.push_back(1);
+	seq.push_back(3);
 
-	latestNumber = 1;
-	for(int i = 2; latestNumber < pendingSize; i++)
+	latestNumber = 3;
+	for(int i = 2; latestNumber < number_of_pairs; i++)
 	{
 		latestNumber = seq[i - 1] + 2 * seq[i - 2]; // n = (n-1) +  2 * (n - 2)
 		seq.push_back(latestNumber);
@@ -119,67 +178,136 @@ std::vector<size_t>	PmergeMe::createjacobsthalSequence(size_t pendingSize)
 	return (seq);
 }
 
-void	PmergeMe::insertionVecJacobStyle(std::vector<size_t>& main, std::vector<size_t>& pending)
+void		PmergeMe::print_pairs(std::vector<std::pair<size_t, size_t>>& pairs, std::string name)
 {
-	std::vector<size_t> sequence;
-	std::vector<size_t>	index_of_added_number;
-
-	sequence = createjacobsthalSequence(pending.size());	//Create JacobsthanSequence
-
-	for (size_t i = 0; i < sequence.size() && i < pending.size(); i++)	//Insert numbers at Jacobsthal sequence index
+	std::cout << name;
+	for (auto p: pairs)
 	{
-		if (sequence[i] >= pending.size())
-			break ;
-		if (i == 2)														//Skip duplicate "1" // 0, 1, 1, 3....
-			continue ;
-		size_t	number	= pending[sequence[i]];
-		auto position	= std::lower_bound(main.begin(), main.end(), number);
-		main.insert(position, number);
-		index_of_added_number.push_back(sequence[i]);
+		std::cout << "(" <<  p.first << ", " << p.second << ") ";
 	}
-	for (size_t i = 0; i < pending.size(); i++)							//Insert rest of numbers
-	{
-		if (std::find(index_of_added_number.begin(), index_of_added_number.end(), i) != index_of_added_number.end())	//Check used Jacobsthal index
-			continue ;
-		size_t	number = pending[i];
-		auto position = std::lower_bound(main.begin(), main.end(), number); 
-		main.insert(position, number);
-	}
+	std::cout << std::endl;
 }
 
+void		PmergeMe::print_pairs_deq(std::deque<std::pair<size_t, size_t>>& pairs, std::string name)
+{
+	std::cout << name;
+	for (auto p: pairs)
+	{
+		std::cout << "(" <<  p.first << ", " << p.second << ") ";
+	}
+	std::cout << std::endl;
+}
+
+/*
+	Binary Insertion using Jacobsthal Sequence
+	1. Creates Jabobsthal Sequence
+	2. Binary Insertion (into main)
+		i. first smaller pair value (b1)
+		ii. Rest of the b -values (b2, b3, b4...) using Jacobsthal Sequence 
+*/
+void	PmergeMe::insertionVecJacobStyle(std::vector<size_t>& main, std::vector<std::pair<size_t, size_t>>& pairs)
+{
+	std::vector<size_t> sequence;
+
+	sequence = createJacobsthalSequence(pairs.size());
+
+	std::vector<size_t> main_copy = main;		//Used for original index (i.e. main will be inserted, thus changes)
+
+	// print_vector(main, "J Start: ");
+	// print_pairs(pairs, "J Pairs: ");
+
+	size_t number = find_pair(main[0], pairs);	//Find b1
+	main.insert(main.begin(), number);			//Insert to front -> b1, a1, a2, a3...
+	// print_vector(main, "J 1st insert: ");
+
+	if (pairs.size() == 1)						//All values added from pairs.
+	{
+		return ;
+	}
+
+	for (size_t i = 1; i < sequence.size(); i++)	//Loop through Jacobsthal sequence
+	{
+		size_t	upper	= sequence[i];			// Current Jacobsthal number	(f.ex. 3)
+		size_t	lower	= sequence[i-1];		// Previous Jacobsthal number	(f.ex. 1)
+
+
+		for (size_t index = upper; index != lower; index--)	// Going reverse order (f.ex. 3, 2 OR 5, 4 OR 11, 10, 9, 8, 7, 6 OR etc)
+		{
+			if (index > pairs.size()) // Checks if index out of bounds
+			{
+				continue ;
+			}
+
+			// Find Corresponding b value
+			size_t	number	= find_pair(main_copy[index - 1], pairs); 			// -1 for offset f.ex. main[1-1] -> a1 -> b1; main[2-1] -> a2 -> b2;
+			
+			// Find Position to insert
+			auto position	= std::lower_bound(main.begin(), main.end(), number); 
+
+			// Insert
+			main.insert(position, number);
+			// print_vector(main, "J Loop: ");	
+		}
+	}
+
+	// print_vector(main, "J End: ");
+	// std::cout << std::endl;
+}
+
+/*
+	Ford-Johnson Algorithm - vector version
+	(Note: Recursive function)
+*/
 void	PmergeMe::vecAlgorithm(std::vector<size_t>&	vec)
 {
-	if (vec.size() == 1)
+    if (vec.size() <= 1)	//Recursion end point
 		return ;
 
-	std::vector<size_t>	main;
-	std::vector<size_t>	pending;
+	//1. Create Pairs (and sort pairs)
+    std::vector<std::pair<size_t, size_t>> 	pairs;
 
-	size_t vecSize = vec.size();
+    for (size_t i = 0; i + 1 < vec.size(); i += 2) 
+	{
+        if (vec[i] < vec[i + 1]) 				
+			std::swap(vec[i], vec[i + 1]);		// Every pair (large number, small number)
+        pairs.push_back({vec[i], vec[i + 1]});	
+    }
 
-	for (size_t i = 0; i + 1 < vecSize; i += 2)
+	// 2. Save leftover (if odd amount of numbers)
+	size_t	leftover;
+	bool	isLeftover = false;
+
+    if (vec.size() % 2 != 0)	// Odd amount
 	{
-		if (vec[i] > vec[i+1])
-		{
-			main.	push_back(vec[i]);
-			pending.push_back(vec[i+1]);
-		}
-		else
-		{
-			main.	push_back(vec[i+1]);
-			pending.push_back(vec[i]);			
-		}
-	}
-	if (vecSize % 2 != 0)
-	{
-		main.push_back(vec[vecSize - 1]);
+		leftover = vec[vec.size() - 1];
+		isLeftover = true;
 	}
 
-	vecAlgorithm(main);
 
-	insertionVecJacobStyle(main, pending);
+    // 3. Create vector with larger value from each pair
+	std::vector<size_t> larger_numbers ;
+    for (const auto& number : pairs)
+	{
+        larger_numbers.push_back(number.first);
+    }
 
-	vec = main;
+    // 4. Recursive function call
+    vecAlgorithm(larger_numbers);
+
+
+	//5. Binary Insertion
+	insertionVecJacobStyle(larger_numbers, pairs);
+
+
+	// 6. Binary insertion of (potential) Leftover
+	if (isLeftover == true)
+	{
+		auto position = std::lower_bound(larger_numbers.begin(), larger_numbers.end(), leftover); 
+		larger_numbers.insert(position, leftover);
+	}
+
+	// 7. Assign to vector
+	vec = larger_numbers;
 }
 
 void	PmergeMe::vecSort()
@@ -215,7 +343,7 @@ std::deque<size_t>&		PmergeMe::getDegue()
 	return (this->deq);
 }
 
-std::deque<size_t>	PmergeMe::createjacobsthalSequenceDeq(size_t pendingSize)
+std::deque<size_t>	PmergeMe::createJacobsthalSequenceDeq(size_t number_of_pairs)
 {
 	std::deque<size_t>	seq;			//jacobsthal sequence (0, 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461...)
 	size_t				latestNumber;	// i.e.	latest sequence number
@@ -224,7 +352,7 @@ std::deque<size_t>	PmergeMe::createjacobsthalSequenceDeq(size_t pendingSize)
 	seq.push_back(1);
 
 	latestNumber = 1;
-	for(int i = 2; latestNumber < pendingSize; i++)
+	for(int i = 2; latestNumber < number_of_pairs; i++)
 	{
 		latestNumber = seq[i - 1] + 2 * seq[i - 2]; // n = (n-1) +  2 * (n - 2)
 		seq.push_back(latestNumber);
@@ -232,68 +360,114 @@ std::deque<size_t>	PmergeMe::createjacobsthalSequenceDeq(size_t pendingSize)
 	return (seq);
 }
 
-void	PmergeMe::insertionDeqJacobStyle(std::deque<size_t>& main, std::deque<size_t>& pending)
+/*
+	Binary Insertion using Jacobsthal Sequence
+	1. Creates Jabobsthal Sequence
+	2. Binary Insertion (into main)
+		i. first smaller pair value (b1)
+		ii. Rest of the b -values (b2, b3, b4...) using Jacobsthal Sequence 
+*/
+void	PmergeMe::insertionDeqJacobStyle(std::deque<size_t>& main, std::deque<std::pair<size_t, size_t>>& pairs)
 {
-	std::deque<size_t>	sequence;
-	std::deque<size_t>	index_of_added_number;
+	std::vector<size_t> sequence;
 
-	sequence = createjacobsthalSequenceDeq(pending.size());
+	sequence = createJacobsthalSequence(pairs.size());
 
-	for (size_t i = 0; i < sequence.size() && i < pending.size(); i++)	//Insert numbers at Jacobsthal sequence index
+	std::deque<size_t> main_copy = main;		//Used for original index (i.e. main will be inserted, thus changes)
+
+	// print_deque(main, "J Start: ");
+	// print_pairs_deq(pairs, "J Pairs: ");
+
+	size_t number = find_pair_deq(main[0], pairs);	//Find b1
+	main.insert(main.begin(), number);				//Insert to front -> b1, a1, a2, a3...
+	// print_deque(main, "J 1st insert: ");
+
+	if (pairs.size() == 1)						//All values added from pairs.
 	{
-		if (sequence[i] >= pending.size())
-			break ;
-		if (i == 2)														//Skip duplicate "1" // 0, 1, 1, 3....
-			continue ;
-		size_t	number	= pending[sequence[i]];
-		auto position	= std::lower_bound(main.begin(), main.end(), number);
-		main.insert(position, number);
-		index_of_added_number.push_back(sequence[i]);
+		return ;
 	}
-	for (size_t i = 0; i < pending.size(); i++)							//Insert rest of numbers
+
+	for (size_t i = 1; i < sequence.size(); i++)	//Loop through Jacobsthal sequence
 	{
-		if (std::find(index_of_added_number.begin(), index_of_added_number.end(), i) != index_of_added_number.end())
-			continue ;
-		size_t	number = pending[i];
-		auto position = std::lower_bound(main.begin(), main.end(), number); 
-		main.insert(position, number);
+		size_t	upper	= sequence[i];			// Current Jacobsthal number	(f.ex. 3)
+		size_t	lower	= sequence[i-1];		// Previous Jacobsthal number	(f.ex. 1)
+
+
+		for (size_t index = upper; index != lower; index--)	// Going reverse order (f.ex. 3, 2 OR 5, 4 OR 11, 10, 9, 8, 7, 6 OR etc)
+		{
+			if (index > pairs.size()) // Checks if index out of bounds
+			{
+				continue ;
+			}
+
+			// Find Corresponding b value
+			size_t	number	= find_pair_deq(main_copy[index - 1], pairs); 			// -1 for offset f.ex. main[1-1] -> a1 -> b1; main[2-1] -> a2 -> b2;
+			
+			// Find Position to insert
+			auto position	= std::lower_bound(main.begin(), main.end(), number); 
+
+			// Insert
+			main.insert(position, number);
+			// print_deque(main, "J Loop: ");	
+		}
 	}
+
+	// print_deque(main, "J End: ");
+	// std::cout << std::endl;
 }
 
+
+/*
+	Ford-Johnson Algorithm - deque version
+	(Note: Recursive function)
+*/
 void	PmergeMe::dequeAlgorithm(std::deque<size_t>& dq)
 {
-
-	if (dq.size() == 1)
+    if (dq.size() <= 1)	//Recursion end point
 		return ;
 
-	std::deque<size_t>	main;
-	std::deque<size_t>	pending;
+	//1. Create Pairs (and sort pairs)
+    std::deque<std::pair<size_t, size_t>> 	pairs;
 
-	size_t dqSize = dq.size();
+    for (size_t i = 0; i + 1 < dq.size(); i += 2) 
+	{
+        if (dq[i] < dq[i + 1]) 				
+			std::swap(dq[i], dq[i + 1]);		// Every pair (large number, small number)
+        pairs.push_back({dq[i], dq[i + 1]});	
+    }
 
-	for (size_t i = 0; i + 1 < dqSize; i += 2)
+	// 2. Save leftover (if odd amount of numbers)
+	size_t	leftover;
+	bool	isLeftover = false;
+
+    if (dq.size() % 2 != 0)	// Odd amount
 	{
-		if (dq[i] > dq[i+1])
-		{
-			main.	push_back(dq[i]);
-			pending.push_back(dq[i+1]);
-		}
-		else
-		{
-			main.	push_back(dq[i+1]);
-			pending.push_back(dq[i]);			
-		}
-	}
-	if (dqSize % 2 != 0)
-	{
-		main.push_back(dq[dqSize - 1]);
+		leftover = dq[dq.size() - 1];
+		isLeftover = true;
 	}
 
-	dequeAlgorithm(main);
+    // 3. Create deque with larger value from each pair
+	std::deque<size_t> larger_numbers;
+    for (const auto& number : pairs)
+	{
+        larger_numbers.push_back(number.first);
+    }
 
-	insertionDeqJacobStyle(main, pending);
+    // 4. Recursive function call
+    dequeAlgorithm(larger_numbers);
 
-	dq = main;
+	//5. Binary Insertion
+	insertionDeqJacobStyle(larger_numbers, pairs);
+
+	// 6. Binary insertion of (potential) Leftover
+	if (isLeftover == true)
+	{
+		auto position = std::lower_bound(larger_numbers.begin(), larger_numbers.end(), leftover); 
+		larger_numbers.insert(position, leftover);
+	}
+
+	// 7. Assign to Deque
+	dq = larger_numbers;
 }
 
 void	PmergeMe::dequeSort()
@@ -331,9 +505,36 @@ void	PmergeMe::print(char **argv)
 	}
 	std::cout << std::endl;
 
+	//2. After
+	std::cout << "After:	";
+
+	for (size_t i = 0; i < this->deq.size(); i++)
+	{
+		std::cout << deq[i] << " ";
+	}
+	std::cout << std::endl;	
+
 	//3. Time to Process Vector
 	std::cout << "Time to process a range of " << this->vec.size() << " elements with std::vector : " << this->vec_process_time << " seconds." << std::endl;
 
-	//4. Time to Process Deque
+	// 4. Time to Process Deque
 	std::cout << "Time to process a range of " << this->deq.size() << " elements with std::deque : " << this->deque_process_time << " seconds." << std::endl;
+
+	if (std::is_sorted(vec.begin(), vec.end()))
+	{
+		std::cout << "\033[32mVector is sorted!\033[0m" << std::endl;
+	}
+	else
+	{
+		std::cout << "\033[31mVector is NOT sorted!\033[0m" << std::endl;
+	}
+
+	if (std::is_sorted(deq.begin(), deq.end()))
+	{
+		std::cout << "\033[32mDeque is sorted!\033[0m" << std::endl;
+	}
+	else
+	{
+		std::cout << "\033[31mDeque is NOT sorted!\033[0m" << std::endl;
+	}	
 }

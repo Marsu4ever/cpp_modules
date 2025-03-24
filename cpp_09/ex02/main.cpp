@@ -17,6 +17,11 @@ int main(int argc, char **argv)
 			return (1);
 	}
 
+	if (data.duplicatesCheck() == 1)
+	{
+		return (1);
+	}
+
 	data.vecSort();
 	data.dequeSort();
 	data.print(argv);
