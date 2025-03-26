@@ -485,7 +485,7 @@ void	PmergeMe::dequeSort()
 
 }
 
-void	PmergeMe::print(char **argv)
+void	PmergeMe::	print(char **argv)
 {
 	//1. Before
 	std::cout << "Before:	" ;
@@ -505,36 +505,10 @@ void	PmergeMe::print(char **argv)
 	}
 	std::cout << std::endl;
 
-	//2. After
-	std::cout << "After:	";
-
-	for (size_t i = 0; i < this->deq.size(); i++)
-	{
-		std::cout << deq[i] << " ";
-	}
-	std::cout << std::endl;	
-
 	//3. Time to Process Vector
 	std::cout << "Time to process a range of " << this->vec.size() << " elements with std::vector : " << this->vec_process_time << " seconds." << std::endl;
 
 	// 4. Time to Process Deque
 	std::cout << "Time to process a range of " << this->deq.size() << " elements with std::deque : " << this->deque_process_time << " seconds." << std::endl;
 
-	if (std::is_sorted(vec.begin(), vec.end()))
-	{
-		std::cout << "\033[32mVector is sorted!\033[0m" << std::endl;
-	}
-	else
-	{
-		std::cout << "\033[31mVector is NOT sorted!\033[0m" << std::endl;
-	}
-
-	if (std::is_sorted(deq.begin(), deq.end()))
-	{
-		std::cout << "\033[32mDeque is sorted!\033[0m" << std::endl;
-	}
-	else
-	{
-		std::cout << "\033[31mDeque is NOT sorted!\033[0m" << std::endl;
-	}	
 }
