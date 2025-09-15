@@ -210,11 +210,11 @@ int		BitcoinExchange::dateOutsideOfScope(data &obj)
 		return 1;
 	}
 
-	if (obj.date > "2025-04-01")			//Date in Future
-	{
-		std::cout << "Error: We're clearly Past The Present In the Future. Check TimeStamp => " << obj.date <<  std::endl;
-		return 1;
-	}
+	// if (obj.date > "2025-04-01")			//Date in Future
+	// {
+	// 	std::cout << "Error: We're clearly Past The Present In the Future. Check TimeStamp => " << obj.date <<  std::endl;
+	// 	return 1;
+	// }
 	return (0);
 }
 
